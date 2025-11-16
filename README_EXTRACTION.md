@@ -6,16 +6,18 @@ A comprehensive, modular system for extracting and annotating information from d
 
 ### 🎯 Core Capabilities
 - **Flexible PDF Extraction**: Support for multiple PDF libraries (pdfplumber, PyPDF2)
-- **Dual Annotation Methods**:
-  - **Rule-based**: Fast, keyword-matching approach
-  - **LLM-based**: AI-powered annotation using Claude, GPT, or Gemini
+- **Multiple Annotation Methods**:
+  - **Rule-based**: Fast, keyword-matching approach (offline, free)
+  - **Cloud LLM**: AI-powered annotation using Claude, GPT, or Gemini
+  - **Local LLM**: Private, offline AI using Ollama, HuggingFace, or LlamaCPP
 - **Knowledge Graph Output**: JSON-LD format ready for graph databases (Neo4j, RDF stores)
 - **Multi-format Export**: JSON-LD knowledge graphs + CSV views for analysis
 
 ### 🏗️ Architecture
 - **Modular Design**: Pluggable extractors, annotators, and output formats
 - **Configuration-driven**: YAML-based configuration for easy customization
-- **Multi-provider LLM**: Support for Anthropic Claude, OpenAI GPT, and Google Gemini
+- **Multi-provider LLM**: Cloud (Anthropic, OpenAI, Google) & Local (Ollama, HuggingFace, LlamaCPP)
+- **Privacy-first Options**: Full offline mode with local LLMs
 - **Extensible**: Easy to add new PDF sources, annotation strategies, or output formats
 
 ## Installation
@@ -29,7 +31,9 @@ pip install -r requirements.txt
 
 ### 2. Install LLM Provider (Optional)
 
-Choose one or more LLM providers if you want AI-powered annotation:
+You can choose between **cloud-based** or **local** LLM providers for AI-powered annotation.
+
+#### **Cloud LLM Providers** (Requires API key)
 
 ```bash
 # For Anthropic Claude
@@ -42,7 +46,7 @@ pip install openai
 pip install google-generativeai
 ```
 
-### 3. Set API Key (for LLM-based annotation)
+Then set your API key:
 
 ```bash
 # For Anthropic Claude
@@ -53,6 +57,46 @@ export OPENAI_API_KEY="your-api-key-here"
 
 # For Google Gemini
 export GEMINI_API_KEY="your-api-key-here"
+```
+
+#### **Local LLM Providers** (No API key, runs offline)
+
+**Option A: Ollama** (Recommended - Easiest)
+
+```bash
+# 1. Install Ollama from https://ollama.ai/
+# 2. Pull a model
+ollama pull llama2
+
+# 3. Install Python client (optional)
+pip install ollama
+
+# 4. Run with Ollama config
+python extract_and_annotate.py --config config.local.ollama.yaml
+```
+
+**Option B: HuggingFace Transformers**
+
+```bash
+# Install transformers and torch
+pip install transformers torch accelerate
+
+# Models download automatically on first run
+python extract_and_annotate.py --config config.local.huggingface.yaml
+```
+
+**Option C: LlamaCPP** (GGUF files)
+
+```bash
+# Install llama-cpp-python
+pip install llama-cpp-python
+
+# For GPU support (Linux/Windows with NVIDIA GPU):
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
+
+# Download a GGUF model from HuggingFace (TheBloke)
+# Update model_path in config.local.llamacpp.yaml
+python extract_and_annotate.py --config config.local.llamacpp.yaml
 ```
 
 ## Quick Start
@@ -75,7 +119,21 @@ export ANTHROPIC_API_KEY="your-key"
 python extract_and_annotate.py --config config.llm.yaml
 ```
 
-### 3. Command-line Options
+### 3. Local LLM Annotation (Offline, No API key)
+
+```bash
+# Using Ollama (easiest)
+ollama pull llama2
+python extract_and_annotate.py --config config.local.ollama.yaml
+
+# Using HuggingFace
+python extract_and_annotate.py --config config.local.huggingface.yaml
+
+# Using LlamaCPP
+python extract_and_annotate.py --config config.local.llamacpp.yaml
+```
+
+### 4. Command-line Options
 
 ```bash
 # Use different annotation method
@@ -131,12 +189,47 @@ annotation:
 #### 4. LLM Provider
 Configure LLM for AI-powered annotation:
 
+**Cloud LLM:**
 ```yaml
 llm:
   enabled: true
   provider: anthropic  # or "openai" or "gemini"
   model: claude-3-5-sonnet-20241022
   api_key_env_var: ANTHROPIC_API_KEY
+  temperature: 0.3
+  max_tokens: 2000
+```
+
+**Local LLM (Ollama):**
+```yaml
+llm:
+  enabled: true
+  provider: ollama
+  model: llama2  # or mistral, mixtral, etc.
+  base_url: http://localhost:11434
+  temperature: 0.3
+  max_tokens: 2000
+```
+
+**Local LLM (HuggingFace):**
+```yaml
+llm:
+  enabled: true
+  provider: huggingface
+  model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+  device: auto  # or "cuda", "cpu", "mps"
+  temperature: 0.3
+  max_tokens: 2000
+```
+
+**Local LLM (LlamaCPP):**
+```yaml
+llm:
+  enabled: true
+  provider: llamacpp
+  model_path: models/llama-2-7b-chat.Q4_K_M.gguf
+  n_ctx: 4096
+  n_gpu_layers: 0  # Set higher for GPU
   temperature: 0.3
   max_tokens: 2000
 ```
@@ -214,13 +307,170 @@ Health-Knowledge-Recommender/
 
 ## Annotation Methods Comparison
 
-| Feature | Rule-based | LLM-based | Hybrid |
-|---------|-----------|-----------|--------|
-| Speed | ⚡ Fast | 🐌 Slower | 🏃 Medium |
-| Accuracy | 📊 Good | 🎯 Excellent | 🎯 Excellent |
-| Cost | 💰 Free | 💸 API costs | 💸 API costs |
-| Setup | ✅ Easy | 🔑 Needs API key | 🔑 Needs API key |
-| Offline | ✅ Yes | ❌ No | ⚠️ Partial |
+| Feature | Rule-based | Cloud LLM | Local LLM | Hybrid |
+|---------|-----------|-----------|-----------|--------|
+| Speed | ⚡ Very Fast | 🐌 Slower | 🏃 Medium | 🏃 Medium |
+| Accuracy | 📊 Good | 🎯 Excellent | 🎯 Very Good | 🎯 Excellent |
+| Cost | 💰 Free | 💸 API costs | 💰 Free | 💸 Some API costs |
+| Setup | ✅ Easy | 🔑 API key | 🔧 Medium | 🔑 API key |
+| Offline | ✅ Yes | ❌ No | ✅ Yes | ⚠️ Partial |
+| Privacy | ✅ Full | ⚠️ Cloud | ✅ Full | ⚠️ Mixed |
+
+## Local LLM Setup Guide
+
+### Why Use Local LLMs?
+
+- **Privacy**: Your data never leaves your machine
+- **Cost**: No API fees, unlimited usage
+- **Offline**: Works without internet
+- **Control**: Full control over model and configuration
+
+### Option 1: Ollama (Recommended)
+
+**Easiest setup, best for beginners**
+
+1. **Install Ollama**
+   - Visit https://ollama.ai/
+   - Download for your OS (Mac, Linux, Windows)
+   - Run installer
+
+2. **Pull a model**
+   ```bash
+   # Small, fast model (~4GB)
+   ollama pull llama2
+
+   # Larger, more accurate (~4.7GB)
+   ollama pull llama2:13b
+
+   # Very capable mixture model (~26GB)
+   ollama pull mixtral
+
+   # Small and fast (~1.6GB)
+   ollama pull phi
+   ```
+
+3. **Run extraction**
+   ```bash
+   python extract_and_annotate.py --config config.local.ollama.yaml
+   ```
+
+**Available Ollama Models:**
+- `llama2` - 7B params, good balance
+- `llama2:13b` - Larger, more accurate
+- `mistral` - Fast and capable
+- `mixtral` - Very powerful (8x7B)
+- `phi` - Small and fast
+- `gemma` - Google's efficient model
+
+### Option 2: HuggingFace Transformers
+
+**Direct model loading, more control**
+
+1. **Install dependencies**
+   ```bash
+   pip install transformers torch accelerate
+   ```
+
+2. **Choose a model** (updates in config)
+   - `TinyLlama/TinyLlama-1.1B-Chat-v1.0` - Small, fast (~1GB)
+   - `mistralai/Mistral-7B-Instruct-v0.2` - Very capable (~14GB)
+   - `google/flan-t5-xl` - Encoder-decoder model (~3GB)
+
+3. **Run extraction**
+   ```bash
+   python extract_and_annotate.py --config config.local.huggingface.yaml
+   ```
+
+**GPU Acceleration:**
+```bash
+# NVIDIA GPU with CUDA
+pip install torch --index-url https://download.pytorch.org/whl/cu118
+
+# Apple Silicon (M1/M2)
+# PyTorch has MPS support built-in, set device: "mps" in config
+```
+
+### Option 3: LlamaCPP (GGUF Files)
+
+**Best for quantized models, very memory efficient**
+
+1. **Install llama-cpp-python**
+   ```bash
+   # CPU only
+   pip install llama-cpp-python
+
+   # With GPU support (NVIDIA)
+   CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
+
+   # With Metal support (Apple M1/M2)
+   CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
+   ```
+
+2. **Download a GGUF model**
+   - Visit HuggingFace: https://huggingface.co/TheBloke
+   - Download a GGUF file (e.g., `llama-2-7b-chat.Q4_K_M.gguf`)
+   - Place in `models/` directory
+
+3. **Update config**
+   ```yaml
+   llm:
+     provider: llamacpp
+     model_path: models/llama-2-7b-chat.Q4_K_M.gguf
+   ```
+
+4. **Run extraction**
+   ```bash
+   python extract_and_annotate.py --config config.local.llamacpp.yaml
+   ```
+
+**Quantization Levels:**
+- `Q4_K_M` - 4-bit, good balance (~4GB)
+- `Q5_K_M` - 5-bit, better quality (~5GB)
+- `Q8_0` - 8-bit, high quality (~7GB)
+
+### Performance Tips
+
+**For Ollama:**
+- Use smaller models for speed: `phi`, `llama2:7b`
+- For accuracy: `mixtral`, `llama2:13b`
+- Check GPU usage: `ollama list`, `nvidia-smi`
+
+**For HuggingFace:**
+- Enable GPU: Set `device: "cuda"` in config
+- Reduce memory: Use smaller models or quantization
+- Speed up: Set `device_map: "auto"` for multi-GPU
+
+**For LlamaCPP:**
+- Use `n_gpu_layers: -1` to offload all layers to GPU
+- Increase `n_ctx` for longer context windows
+- Try different quantization levels for speed/quality tradeoff
+
+### Troubleshooting Local LLMs
+
+**"Connection refused" (Ollama)**
+```bash
+# Check if Ollama is running
+ollama list
+
+# Start Ollama server
+ollama serve
+```
+
+**"Out of memory" (HuggingFace/LlamaCPP)**
+```yaml
+# Use a smaller model or reduce context
+llm:
+  model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+  n_ctx: 2048  # For LlamaCPP
+```
+
+**Slow inference**
+```yaml
+# Enable GPU or use smaller model
+llm:
+  device: cuda  # HuggingFace
+  n_gpu_layers: 32  # LlamaCPP
+```
 
 ## Using Knowledge Graphs
 

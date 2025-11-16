@@ -1,12 +1,16 @@
 """
 LLM-based content annotator with support for multiple providers.
+
+Supports both cloud-based and local LLM providers:
+- Cloud: Anthropic (Claude), OpenAI (GPT), Google (Gemini)
+- Local: Ollama, HuggingFace Transformers, LlamaCPP
 """
 
 import logging
 import json
 import re
 import uuid
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Any
 import os
 
 from ..models import (
@@ -20,31 +24,37 @@ logger = logging.getLogger(__name__)
 
 
 class LLMProvider:
-    """Wrapper for different LLM providers."""
+    """Wrapper for different LLM providers (cloud and local)."""
 
     def __init__(
         self,
         provider: str,
         model: str,
-        api_key: str,
+        api_key: Optional[str] = None,
         temperature: float = 0.3,
-        max_tokens: int = 2000
+        max_tokens: int = 2000,
+        **kwargs
     ):
         """
         Initialize LLM provider.
 
         Args:
-            provider: Provider name ("anthropic", "openai", "gemini")
-            model: Model name/ID
-            api_key: API key for the provider
+            provider: Provider name ("anthropic", "openai", "gemini", "ollama", "huggingface", "llamacpp")
+            model: Model name/ID or path
+            api_key: API key for cloud providers (optional for local)
             temperature: Sampling temperature
             max_tokens: Maximum tokens in response
+            **kwargs: Additional provider-specific arguments
+                - base_url: For Ollama (default: http://localhost:11434)
+                - device: For HuggingFace (default: "auto")
+                - model_path: For LlamaCPP (path to GGUF file)
         """
         self.provider = provider.lower()
         self.model = model
         self.api_key = api_key
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.kwargs = kwargs
         self.client = None
 
         self._initialize_client()
@@ -52,6 +62,7 @@ class LLMProvider:
     def _initialize_client(self):
         """Initialize the appropriate client based on provider."""
         try:
+            # Cloud providers
             if self.provider == "anthropic":
                 import anthropic
                 self.client = anthropic.Anthropic(api_key=self.api_key)
@@ -68,6 +79,59 @@ class LLMProvider:
                 self.client = genai.GenerativeModel(self.model)
                 logger.info(f"Initialized Gemini client with model {self.model}")
 
+            # Local providers
+            elif self.provider == "ollama":
+                try:
+                    import ollama
+                    # Ollama can use custom base URL
+                    base_url = self.kwargs.get('base_url', 'http://localhost:11434')
+                    self.client = ollama.Client(host=base_url)
+                    logger.info(f"Initialized Ollama client with model {self.model} at {base_url}")
+                except ImportError:
+                    # Fallback to requests if ollama package not available
+                    logger.info(f"Using requests fallback for Ollama (model: {self.model})")
+                    self.client = "requests_fallback"
+
+            elif self.provider == "huggingface":
+                from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+                import torch
+
+                device = self.kwargs.get('device', 'auto')
+                logger.info(f"Loading HuggingFace model {self.model} on device {device}...")
+
+                # Load tokenizer and model
+                self.tokenizer = AutoTokenizer.from_pretrained(self.model)
+                self.hf_model = AutoModelForCausalLM.from_pretrained(
+                    self.model,
+                    device_map=device,
+                    torch_dtype=torch.float16 if device != 'cpu' else torch.float32
+                )
+
+                # Create pipeline
+                self.client = pipeline(
+                    "text-generation",
+                    model=self.hf_model,
+                    tokenizer=self.tokenizer,
+                    device_map=device
+                )
+                logger.info(f"Initialized HuggingFace model {self.model}")
+
+            elif self.provider == "llamacpp":
+                from llama_cpp import Llama
+
+                model_path = self.kwargs.get('model_path') or self.model
+                n_ctx = self.kwargs.get('n_ctx', 4096)
+                n_gpu_layers = self.kwargs.get('n_gpu_layers', 0)
+
+                logger.info(f"Loading LlamaCPP model from {model_path}...")
+                self.client = Llama(
+                    model_path=model_path,
+                    n_ctx=n_ctx,
+                    n_gpu_layers=n_gpu_layers,
+                    verbose=False
+                )
+                logger.info(f"Initialized LlamaCPP model from {model_path}")
+
             else:
                 raise ValueError(f"Unsupported provider: {self.provider}")
 
@@ -83,7 +147,10 @@ class LLMProvider:
         packages = {
             "anthropic": "anthropic",
             "openai": "openai",
-            "gemini": "google-generativeai"
+            "gemini": "google-generativeai",
+            "ollama": "ollama",
+            "huggingface": "transformers torch",
+            "llamacpp": "llama-cpp-python"
         }
         return packages.get(self.provider, self.provider)
 
@@ -98,6 +165,7 @@ class LLMProvider:
             Generated text
         """
         try:
+            # Cloud providers
             if self.provider == "anthropic":
                 message = self.client.messages.create(
                     model=self.model,
@@ -126,6 +194,60 @@ class LLMProvider:
                 )
                 return response.text
 
+            # Local providers
+            elif self.provider == "ollama":
+                if self.client == "requests_fallback":
+                    # Use requests as fallback
+                    import requests
+                    base_url = self.kwargs.get('base_url', 'http://localhost:11434')
+                    response = requests.post(
+                        f"{base_url}/api/generate",
+                        json={
+                            "model": self.model,
+                            "prompt": prompt,
+                            "stream": False,
+                            "options": {
+                                "temperature": self.temperature,
+                                "num_predict": self.max_tokens
+                            }
+                        },
+                        timeout=120
+                    )
+                    response.raise_for_status()
+                    return response.json()['response']
+                else:
+                    # Use ollama package
+                    response = self.client.generate(
+                        model=self.model,
+                        prompt=prompt,
+                        options={
+                            'temperature': self.temperature,
+                            'num_predict': self.max_tokens
+                        }
+                    )
+                    return response['response']
+
+            elif self.provider == "huggingface":
+                # Generate using pipeline
+                outputs = self.client(
+                    prompt,
+                    max_new_tokens=self.max_tokens,
+                    temperature=self.temperature,
+                    do_sample=True,
+                    return_full_text=False
+                )
+                return outputs[0]['generated_text']
+
+            elif self.provider == "llamacpp":
+                response = self.client(
+                    prompt,
+                    max_tokens=self.max_tokens,
+                    temperature=self.temperature,
+                    stop=["User:", "\n\n\n"],
+                    echo=False
+                )
+                return response['choices'][0]['text']
+
         except Exception as e:
             logger.error(f"LLM generation failed: {e}")
             raise
@@ -142,25 +264,27 @@ class LLMAnnotator(BaseAnnotator):
         self,
         provider: str,
         model: str,
-        api_key: str,
+        api_key: Optional[str],
         fast_loader: FASTLoader,
         capability_loader: CapabilityLoader,
         mapping_loader: MappingLoader,
         temperature: float = 0.3,
-        max_tokens: int = 2000
+        max_tokens: int = 2000,
+        **kwargs
     ):
         """
         Initialize LLM-based annotator.
 
         Args:
-            provider: LLM provider ("anthropic", "openai", "gemini")
-            model: Model name
-            api_key: API key for the provider
+            provider: LLM provider ("anthropic", "openai", "gemini", "ollama", "huggingface", "llamacpp")
+            model: Model name or path
+            api_key: API key for cloud providers (optional for local)
             fast_loader: Loaded FAST stage data
             capability_loader: Loaded capability data
             mapping_loader: Loaded mapping data
             temperature: LLM sampling temperature
             max_tokens: Maximum tokens in LLM response
+            **kwargs: Additional provider-specific arguments
         """
         self.fast_loader = fast_loader
         self.capability_loader = capability_loader
@@ -171,7 +295,8 @@ class LLMAnnotator(BaseAnnotator):
             model=model,
             api_key=api_key,
             temperature=temperature,
-            max_tokens=max_tokens
+            max_tokens=max_tokens,
+            **kwargs
         )
 
         # Build context for prompts
@@ -373,16 +498,27 @@ def create_llm_annotator_from_config(
 
     provider = llm_config.get("provider")
     model = llm_config.get("model")
+
+    # API key is optional for local providers
+    api_key = None
     api_key_env = llm_config.get("api_key_env_var")
 
-    if not api_key_env:
-        logger.warning("No API key environment variable specified for LLM")
-        return None
+    if api_key_env:
+        api_key = os.getenv(api_key_env)
+        if not api_key and provider not in ["ollama", "huggingface", "llamacpp"]:
+            logger.warning(f"API key not found in environment variable: {api_key_env}")
+            return None
 
-    api_key = os.getenv(api_key_env)
-    if not api_key:
-        logger.warning(f"API key not found in environment variable: {api_key_env}")
-        return None
+    # Extract provider-specific kwargs
+    kwargs = {}
+    if provider == "ollama":
+        kwargs['base_url'] = llm_config.get("base_url", "http://localhost:11434")
+    elif provider == "huggingface":
+        kwargs['device'] = llm_config.get("device", "auto")
+    elif provider == "llamacpp":
+        kwargs['model_path'] = llm_config.get("model_path")
+        kwargs['n_ctx'] = llm_config.get("n_ctx", 4096)
+        kwargs['n_gpu_layers'] = llm_config.get("n_gpu_layers", 0)
 
     try:
         return LLMAnnotator(
@@ -393,7 +529,8 @@ def create_llm_annotator_from_config(
             capability_loader=capability_loader,
             mapping_loader=mapping_loader,
             temperature=llm_config.get("temperature", 0.3),
-            max_tokens=llm_config.get("max_tokens", 2000)
+            max_tokens=llm_config.get("max_tokens", 2000),
+            **kwargs
         )
     except Exception as e:
         logger.error(f"Failed to create LLM annotator: {e}")
