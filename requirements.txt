@@ -11,10 +11,31 @@ openpyxl>=3.1.0
 pdfplumber>=0.10.0
 # PyPDF2>=3.0.0  # Alternative PDF library
 
-# Optional: LLM providers (install only what you need)
+# ============================================================================
+# LLM Providers (install only what you need)
+# ============================================================================
+
+# CLOUD LLM PROVIDERS
+# -------------------
 # anthropic>=0.18.0  # For Claude
 # openai>=1.12.0     # For GPT
 # google-generativeai>=0.3.0  # For Gemini
+
+# LOCAL LLM PROVIDERS
+# -------------------
+# Option 1: Ollama (Recommended - easiest local LLM)
+# ollama>=0.1.0      # Python client for Ollama
+# Note: Also install Ollama server from https://ollama.ai/
+
+# Option 2: HuggingFace Transformers (Direct model loading)
+# transformers>=4.35.0
+# torch>=2.0.0       # For GPU: pip install torch with CUDA support
+# accelerate>=0.24.0 # For device_map="auto"
+
+# Option 3: LlamaCPP (GGUF quantized models)
+# llama-cpp-python>=0.2.0  # For CPU
+# For GPU support on Linux/Windows:
+#   CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
 
 # Development dependencies (optional)
 # pytest>=7.4.0

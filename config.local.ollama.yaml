@@ -1,0 +1,78 @@
+# PDF Data Extraction and Annotation Configuration
+# LOCAL LLM Example - Ollama
+# Health Knowledge Recommender Project
+
+# Ollama is the easiest way to run local LLMs
+# Install: https://ollama.ai/
+# Pull a model: ollama pull llama2
+# Then run this config
+
+data_paths:
+  fast_stages: data/wp-01/fast-stages.json
+  adl_file: data/wp-01/[Katz] ADLs.xlsx
+  iadl_file: data/wp-01/[Lawton] IADL.xlsx
+  mapping_file: data/wp-02/FAST and ADL IADL mapping.xlsx
+
+documents:
+  - id: doc_001
+    name: "The Dementia Guide"
+    file_path: data/resources/the_dementia_guide.pdf
+    source_organization: "Alzheimer's Society UK"
+    target_audience: "Both"
+    language: en
+
+  - id: doc_002
+    name: "Caring: A Practical Guide"
+    file_path: data/resources/caring_practical_guide.pdf
+    source_organization: "Alzheimer's Society UK"
+    target_audience: "Caregiver"
+    language: en
+
+extraction:
+  pdf_library: auto
+  min_section_length: 50
+  min_paragraph_length: 20
+  extract_tips: true
+
+annotation:
+  # Use LLM-based annotation with local Ollama
+  method: llm
+  min_confidence: 0.3
+
+# ============================================================================
+# Ollama Configuration (LOCAL)
+# ============================================================================
+llm:
+  enabled: true
+  provider: ollama
+
+  # Model name - available models:
+  # - llama2 (7B, good balance)
+  # - llama2:13b (larger, more accurate)
+  # - mistral (7B, fast)
+  # - mixtral (8x7B, very capable)
+  # - phi (small, fast)
+  # - gemma (2B/7B, Google)
+  model: llama2
+
+  # Ollama server URL (default: http://localhost:11434)
+  base_url: http://localhost:11434
+
+  # No API key needed for local models!
+  # api_key_env_var: null
+
+  temperature: 0.3
+  max_tokens: 2000
+
+output:
+  output_dir: output
+  generate_knowledge_graph: true
+  knowledge_graph_file: output/knowledge_graph.jsonld
+  knowledge_graph_base_uri: "http://health-knowledge-recommender.org/kg/"
+  include_reference_data: true
+  generate_csv: true
+  generate_json: false
+
+logging:
+  level: INFO
+  log_file: logs/extraction.log
