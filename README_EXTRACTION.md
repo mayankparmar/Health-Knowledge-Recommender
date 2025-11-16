@@ -613,11 +613,135 @@ annotator = RuleBasedAnnotator(fast_loader, capability_loader, mapping_loader)
 annotations = annotator.annotate_batch(contents, document)
 ```
 
+## Knowledge Graph Visualization
+
+After extracting and annotating data, you can create interactive visualizations of your knowledge graph using the `visualize_knowledge_graph.py` script.
+
+### Installation
+
+```bash
+pip install pyvis networkx
+```
+
+### Quick Start
+
+Generate all visualization views:
+
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --view all
+```
+
+This creates interactive HTML visualizations in the `visualizations/` directory:
+- `full_knowledge_graph.html` - Complete graph with all nodes and relationships
+- `fast_stages_view.html` - FAST stages, capabilities, and mappings
+- `content_view.html` - Documents, content, and annotations
+- `statistics.html` - Graph statistics and metrics
+
+### Visualization Modes
+
+**1. Full Graph View**
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld
+```
+Shows all nodes and relationships in the knowledge graph.
+
+**2. FAST Stages View**
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --view fast-stages
+```
+Focuses on FAST stages, ADL/IADL capabilities, and their mappings.
+
+**3. Content View**
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --view content
+```
+Shows documents, extracted content, and annotations.
+
+**4. Stage-Specific View**
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --stage FAST-4
+```
+Visualizes everything related to a specific FAST stage (e.g., FAST-4, FAST-7c).
+
+**5. Statistics View**
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --view stats
+```
+Generates an HTML dashboard with graph statistics and metrics.
+
+### Interactive Features
+
+The HTML visualizations include:
+- **Interactive navigation** - Zoom, pan, and drag nodes
+- **Node details** - Hover over nodes to see detailed information
+- **Color coding** - Different colors for different node types
+- **Shape differentiation** - Different shapes for FAST stages, capabilities, content, etc.
+- **Edge labels** - Relationship types shown on connections
+- **Physics simulation** - Force-directed graph layout
+
+### Node Color Scheme
+
+- **FAST Stages**: Red (#FF6B6B)
+- **ADL Capabilities**: Teal (#4ECDC4)
+- **IADL Capabilities**: Blue (#45B7D1)
+- **Mappings**: Light Coral (#FFA07A)
+- **Documents**: Mint (#95E1D3)
+- **Content Sections**: Yellow (#F9ED69)
+- **Paragraphs**: Pink (#F38181)
+- **Tips**: Purple (#AA96DA)
+- **Annotations**: Light Pink (#FCBAD3)
+
+### Example Usage
+
+After running extraction:
+
+```bash
+# Extract and annotate
+python extract_and_annotate.py config.yaml
+
+# Create visualizations
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld --view all
+
+# Open in browser
+# For example, on Linux:
+xdg-open visualizations/full_knowledge_graph.html
+```
+
+### Custom Output Directory
+
+```bash
+python visualize_knowledge_graph.py output/knowledge_graph.jsonld \
+    --output-dir my_visualizations
+```
+
+### Understanding the Visualizations
+
+**Full Graph** - Best for:
+- Understanding overall structure
+- Finding unexpected connections
+- Exploring the complete knowledge base
+
+**FAST Stages View** - Best for:
+- Understanding functional capability mappings
+- Seeing which ADLs/IADLs are affected at each stage
+- Clinical reference
+
+**Content View** - Best for:
+- Reviewing annotated content
+- Verifying annotation quality
+- Content auditing
+
+**Stage-Specific View** - Best for:
+- Focused analysis of a particular stage
+- Creating stage-specific documentation
+- Understanding stage progression
+
 ## Performance Considerations
 
 - **Rule-based**: Processes ~1000 items/minute
 - **LLM-based**: Processes ~10-50 items/minute (depends on API rate limits)
 - **Memory**: ~100MB for reference data + PDF size
+- **Visualization**: Graphs with >1000 nodes may be slow in browser; use filtered views for large graphs
 
 ## Future Enhancements
 
