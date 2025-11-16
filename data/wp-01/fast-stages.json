@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "model_name": "Functional Assessment Staging Tool (FAST)",
+    "developer": "Barry Reisberg, MD",
+    "year": 1982,
+    "purpose": "Stages functional decline in Alzheimer's disease from normal aging through severe dementia",
+    "total_stages": 16,
+    "primary_use": "Clinical assessment, care planning, and research staging",
+    "validity": "Highly correlated with neuropathological changes and cognitive decline",
+    "source": "Reisberg, B. (1988). Functional assessment staging (FAST). Psychopharmacology Bulletin, 24(4), 653-659."
+  },
+  "stages": [
+    {
+      "stage": "1",
+      "stage_code": "FAST-1",
+      "stage_name": "Normal Adult",
+      "clinical_characteristics": "No functional decline. Normal cognitive functioning.",
+      "functional_status": {
+        "cognition": "Intact",
+        "adl_status": "Independent in all ADLs",
+        "iadl_status": "Independent in all IADLs"
+      },
+      "typical_duration": "N/A - baseline normal functioning",
+      "care_needs": "None - routine health maintenance"
+    },
+    {
+      "stage": "2",
+      "stage_code": "FAST-2",
+      "stage_name": "Normal Older Adult",
+      "clinical_characteristics": "Subjective complaints of forgetting location of objects. Subjective work difficulties. No objective evidence of memory deficit on clinical interview.",
+      "functional_status": {
+        "cognition": "Subjective decline only",
+        "adl_status": "Independent in all ADLs",
+        "iadl_status": "Independent in all IADLs"
+      },
+      "typical_duration": "Variable - age-related changes",
+      "care_needs": "None - routine health maintenance"
+    },
+    {
+      "stage": "3",
+      "stage_code": "FAST-3",
+      "stage_name": "Early Alzheimer's Disease",
+      "clinical_characteristics": "Earliest clear-cut deficits. Manifestations include: decreased work performance evident to coworkers, difficulty traveling to new locations, decreased organizational capacity.",
+      "functional_status": {
+        "cognition": "Mild impairment detectable on careful clinical assessment",
+        "adl_status": "Independent in all ADLs",
+        "iadl_status": "Beginning difficulty with complex IADLs (work performance, traveling to new locations)"
+      },
+      "typical_duration": "Approximately 7 years before more severe symptoms",
+      "care_needs": "May benefit from memory aids, simplified environment, routine establishment"
+    },
+    {
+      "stage": "4",
+      "stage_code": "FAST-4",
+      "stage_name": "Mild Alzheimer's Disease",
+      "clinical_characteristics": "Clear-cut deficit on careful clinical interview. Deficit manifest in: decreased knowledge of current and recent events, deficit in memory of personal history, decreased concentration on serial subtractions, decreased ability to travel, handle finances, etc.",
+      "functional_status": {
+        "cognition": "Moderate impairment",
+        "adl_status": "Independent in most ADLs (may need prompting)",
+        "iadl_status": "Impaired in complex IADLs: managing finances, medication management, using transportation"
+      },
+      "typical_duration": "Approximately 2 years",
+      "care_needs": "Supervision for complex tasks, financial management assistance, medication management support"
+    },
+    {
+      "stage": "5",
+      "stage_code": "FAST-5",
+      "stage_name": "Moderate Alzheimer's Disease",
+      "clinical_characteristics": "Patient can no longer survive without some assistance. Unable to recall major relevant aspects of current life, e.g., address, telephone number, names of close family members, name of high school or college attended. Often disoriented to date or season.",
+      "functional_status": {
+        "cognition": "Moderate to severe impairment",
+        "adl_status": "Needs assistance with selecting proper clothing. May need prompting to bathe.",
+        "iadl_status": "Dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 18 months",
+      "care_needs": "Daily supervision, assistance with clothing selection, prompting for hygiene, safety monitoring"
+    },
+    {
+      "stage": "6a",
+      "stage_code": "FAST-6a",
+      "stage_name": "Moderately Severe Alzheimer's Disease - Improperly Putting on Clothes",
+      "clinical_characteristics": "Difficulty putting on clothing properly without assistance. May put clothing on in wrong sequence, forget items.",
+      "functional_status": {
+        "cognition": "Severe impairment",
+        "adl_status": "Requires assistance with dressing",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 5 months per substage (6a-6e)",
+      "care_needs": "Physical assistance with dressing, complete supervision"
+    },
+    {
+      "stage": "6b",
+      "stage_code": "FAST-6b",
+      "stage_name": "Moderately Severe Alzheimer's Disease - Unable to Bathe Properly",
+      "clinical_characteristics": "Unable to bathe properly (e.g., difficulty adjusting bathwater temperature). Requires assistance to avoid safety issues.",
+      "functional_status": {
+        "cognition": "Severe impairment",
+        "adl_status": "Requires assistance with bathing and dressing",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 5 months per substage",
+      "care_needs": "Complete bathing assistance, fall prevention, temperature safety monitoring"
+    },
+    {
+      "stage": "6c",
+      "stage_code": "FAST-6c",
+      "stage_name": "Moderately Severe Alzheimer's Disease - Inability to Handle Mechanics of Toileting",
+      "clinical_characteristics": "Inability to handle mechanics of toileting (e.g., forgets to flush, doesn't wipe properly, improper disposal of tissue).",
+      "functional_status": {
+        "cognition": "Severe impairment",
+        "adl_status": "Requires assistance with dressing, bathing, and toileting mechanics",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 5 months per substage",
+      "care_needs": "Toileting assistance, hygiene support, dignity preservation"
+    },
+    {
+      "stage": "6d",
+      "stage_code": "FAST-6d",
+      "stage_name": "Moderately Severe Alzheimer's Disease - Urinary Incontinence",
+      "clinical_characteristics": "Urinary incontinence (occasional or more frequent).",
+      "functional_status": {
+        "cognition": "Severe impairment",
+        "adl_status": "Incontinent of urine. Requires assistance with all ADLs except eating and ambulating.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 5 months per substage",
+      "care_needs": "Incontinence management, scheduled toileting, skin care, dignity preservation"
+    },
+    {
+      "stage": "6e",
+      "stage_code": "FAST-6e",
+      "stage_name": "Moderately Severe Alzheimer's Disease - Fecal Incontinence",
+      "clinical_characteristics": "Fecal incontinence (occasional or more frequent).",
+      "functional_status": {
+        "cognition": "Severe impairment",
+        "adl_status": "Incontinent of urine and bowel. Requires assistance with all ADLs except eating and ambulating.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 5 months per substage",
+      "care_needs": "Complete incontinence management, comprehensive hygiene care, skin integrity monitoring"
+    },
+    {
+      "stage": "7a",
+      "stage_code": "FAST-7a",
+      "stage_name": "Severe Alzheimer's Disease - Ability to Speak Limited to 1-5 Words",
+      "clinical_characteristics": "Speech ability is limited to approximately a half-dozen intelligible different words in the course of an average day.",
+      "functional_status": {
+        "cognition": "Very severe impairment",
+        "adl_status": "Dependent in all ADLs except may retain some ability to ambulate",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 12 months per substage (7a-7f)",
+      "care_needs": "Total care, communication support, emotional comfort, non-verbal communication techniques"
+    },
+    {
+      "stage": "7b",
+      "stage_code": "FAST-7b",
+      "stage_name": "Severe Alzheimer's Disease - Intelligible Vocabulary Limited to a Single Word",
+      "clinical_characteristics": "Speech ability is limited to the use of a single intelligible word in an average day (the person may repeat the word over and over).",
+      "functional_status": {
+        "cognition": "Very severe impairment",
+        "adl_status": "Dependent in all ADLs except may retain some ability to ambulate",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 12 months per substage",
+      "care_needs": "Total care, comfort measures, alternative communication methods"
+    },
+    {
+      "stage": "7c",
+      "stage_code": "FAST-7c",
+      "stage_name": "Severe Alzheimer's Disease - Ambulatory Ability Lost",
+      "clinical_characteristics": "Ability to walk has been lost (cannot walk without personal assistance).",
+      "functional_status": {
+        "cognition": "Very severe impairment",
+        "adl_status": "Non-ambulatory. Dependent in all ADLs.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 12 months per substage",
+      "care_needs": "Total care, mobility assistance, pressure ulcer prevention, range of motion exercises"
+    },
+    {
+      "stage": "7d",
+      "stage_code": "FAST-7d",
+      "stage_name": "Severe Alzheimer's Disease - Ability to Sit Up Lost",
+      "clinical_characteristics": "Ability to sit up without assistance has been lost (the person will fall over if there is no lateral support, such as armrests).",
+      "functional_status": {
+        "cognition": "Very severe impairment",
+        "adl_status": "Cannot sit without support. Dependent in all ADLs.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 12 months per substage",
+      "care_needs": "Total care, positioning support, aspiration precautions, pressure ulcer prevention"
+    },
+    {
+      "stage": "7e",
+      "stage_code": "FAST-7e",
+      "stage_name": "Severe Alzheimer's Disease - Ability to Smile Lost",
+      "clinical_characteristics": "Loss of ability to smile.",
+      "functional_status": {
+        "cognition": "Very severe impairment",
+        "adl_status": "Cannot sit without support. Dependent in all ADLs.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Approximately 12 months per substage",
+      "care_needs": "Total care, comfort measures, sensory stimulation, dignity preservation"
+    },
+    {
+      "stage": "7f",
+      "stage_code": "FAST-7f",
+      "stage_name": "Severe Alzheimer's Disease - Ability to Hold Head Up Lost",
+      "clinical_characteristics": "Loss of ability to hold head up independently.",
+      "functional_status": {
+        "cognition": "Very severe impairment - end stage",
+        "adl_status": "Cannot hold head up. Completely dependent in all ADLs.",
+        "iadl_status": "Fully dependent in all IADLs"
+      },
+      "typical_duration": "Variable - end-stage dementia",
+      "care_needs": "Total care, comfort measures, aspiration prevention, end-of-life care considerations"
+    }
+  ],
+  "clinical_notes": {
+    "progression": "FAST stages generally progress in order, though individual variation exists. Stages 6 and 7 have substages that typically occur sequentially.",
+    "assessment_frequency": "Assessment should be conducted every 6-12 months in early stages, more frequently in later stages.",
+    "reliability": "FAST demonstrates high inter-rater reliability and correlation with cognitive decline measures.",
+    "limitations": "Primarily validated in Alzheimer's disease; may not apply to other dementias. Does not capture all aspects of behavior and psychiatric symptoms."
+  },
+  "usage_for_wp02": {
+    "mapping_approach": "Each FAST stage will be mapped to specific ADL/IADL impairments in WP-02",
+    "granularity": "Substages (6a-6e, 7a-7f) provide detailed functional markers for precise capability mapping",
+    "key_transitions": [
+      "Stage 3-4: IADL impairment begins",
+      "Stage 5: ADL prompting begins",
+      "Stage 6a: Physical ADL assistance required",
+      "Stage 6d-6e: Incontinence onset",
+      "Stage 7a-7f: Progressive loss of basic functions"
+    ]
+  }
+}

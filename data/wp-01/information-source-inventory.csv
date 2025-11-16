@@ -1,0 +1,82 @@
+source_id,source_name,organization,url,source_type,content_format,primary_topics,target_audience,language,update_frequency,access_type,content_quality_rating,stage_coverage,iadl_coverage,adl_coverage,caregiver_info,patient_info,clinical_guidelines,evidence_level,geographic_scope,extracted_for_wp03,notes
+SRC-001,WHO Dementia Fact Sheet,World Health Organization,https://www.who.int/news-room/fact-sheets/detail/dementia,Fact Sheet,Web page,"Definition, risk factors, signs/symptoms, common forms, treatment, prevention, care support, human rights",Patients|Caregivers|Healthcare Professionals|Policymakers,Multiple (50+ languages),Annual,Open Access,High,General overview,Partial,Partial,Yes,Yes,Yes,Level 1 (systematic reviews),Global,Yes,"57M affected globally; includes mDementia handbook, iSupport program"
+SRC-002,WHO Global Dementia Observatory,World Health Organization,https://www.who.int/data/gho/data/themes/topics/global-dementia-observatory,Data Portal,Interactive database,Dementia statistics and monitoring,Researchers|Policymakers|Healthcare Professionals,English,Ongoing,Open Access,High,Epidemiological data,No,No,No,No,No,Level 1,Global,No,Data portal for global dementia surveillance
+SRC-003,WHO iSupport Programme,World Health Organization,https://www.who.int/publications/i/item/9789240622623,Training Program,Digital manual + platform,Caregiver skills training and support,Caregivers,Multiple (20+ languages),Periodic updates,Open Access,High,All stages covered,Yes,Yes,Yes,Limited,No,Level 2 (evidence-based),Global,Yes,Self-paced online caregiver training in 5 modules
+SRC-004,NHS Dementia Guide,National Health Service (UK),https://www.nhs.uk/conditions/dementia/,Health Guide,Web pages (multi-section),"What is dementia, symptoms, diagnosis, living with dementia, care and support",Patients|Caregivers|General Public,English,Periodic (as needed),Open Access,High,All stages covered,Yes,Yes,Yes,Yes,Yes,Level 2,United Kingdom,Yes,Comprehensive guide with links to support organizations
+SRC-005,NHS Dementia Care and Support,National Health Service (UK),https://www.nhs.uk/conditions/dementia/care-and-support/,Resource Page,Web page,"Care homes, NHS care, social services, financial support, legal issues",Caregivers|Families,English,Periodic,Open Access,High,Mid to late stages,Partial,Yes,Yes,Limited,No,Level 3,United Kingdom,Yes,Focus on care transitions and practical support
+SRC-006,Alzheimer's Association - What is Dementia,Alzheimer's Association (USA),https://www.alz.org/alzheimers-dementia/what-is-dementia,Educational Resource,Web pages,"Definition, types, symptoms, diagnosis, treatment, research",Patients|Caregivers|General Public,English|Spanish,Frequent updates,Open Access,High,General overview,Partial,Partial,Yes,Yes,Yes,Level 2,United States (Global reach),Yes,Includes 10 warning signs; 24/7 helpline available
+SRC-007,Alzheimer's Association - Stages of Alzheimer's,Alzheimer's Association (USA),https://www.alz.org/alzheimers-dementia/stages,Educational Resource,Web page,Seven stages of Alzheimer's disease progression,Patients|Caregivers|Healthcare Professionals,English|Spanish,Periodic,Open Access,High,All stages (7-stage model),Yes,Yes,Yes,Yes,Yes,Level 2,United States,Yes,Detailed stage-by-stage breakdown with care recommendations
+SRC-008,Alzheimer's Association - Daily Care,Alzheimer's Association (USA),https://www.alz.org/help-support/caregiving/daily-care,Caregiver Guide,Web pages (multi-topic),"Bathing, dressing, eating, dental care, toileting, activities",Caregivers,English|Spanish,Periodic,Open Access,High,Mid to late stages,No,Yes,Yes,Limited,Yes,Level 3,United States,Yes,Practical ADL-specific guidance with stage considerations
+SRC-009,Alzheimer's Association - Treatments and Research,Alzheimer's Association (USA),https://www.alz.org/alzheimers-dementia/treatments,Clinical Information,Web pages,"Current treatments, FDA-approved medications, clinical trials",Patients|Caregivers|Healthcare Professionals,English|Spanish,Frequent (new treatments),Open Access,High,Early to mid stages,No,No,Limited,Yes,Yes,Level 1-2,United States,Yes,Includes information on lecanemab and donanemab
+SRC-010,Alzheimer's Society UK - About Dementia,Alzheimer's Society (UK),https://www.alzheimers.org.uk/about-dementia,Educational Hub,Web pages (comprehensive),"Types, symptoms, diagnosis, risk factors, prevention, living with dementia",Patients|Caregivers|General Public,English,Regular updates,Open Access,High,All stages,Yes,Yes,Yes,Yes,Yes,Level 2,United Kingdom,Yes,Comprehensive resource with local support services
+SRC-011,Dementia UK - Admiral Nursing Resources,Dementia UK,https://www.dementiauk.org/,Support Service,Web resources + telephone support,Specialist dementia nursing advice and support,Caregivers|Families,English,Ongoing,Open Access (helpline),High,All stages,Yes,Yes,Yes,Limited,Limited,Level 3,United Kingdom,Yes,Helpline: 0800 888 6678; specialist dementia nurse consultation
+SRC-012,NICE Dementia Guidelines,National Institute for Health and Care Excellence (UK),https://www.nice.org.uk/guidance/ng97,Clinical Guideline,PDF + Web,"Assessment, management, cognitive symptoms, non-cognitive symptoms, promoting wellbeing",Healthcare Professionals|Care Organizations,English,Periodic (evidence-based updates),Open Access,Very High,All stages,Yes,Yes,Yes,Yes,Yes,Level 1 (systematic reviews),United Kingdom,Yes,NG97 - Gold standard clinical practice guideline
+SRC-013,American Psychiatric Association - DSM-5-TR Neurocognitive Disorders,American Psychiatric Association,https://www.psychiatry.org/,Diagnostic Manual,Published textbook (paid),Diagnostic criteria for major and mild neurocognitive disorders,Healthcare Professionals|Researchers,English (multiple translations),Periodic editions,Paid (textbook),Very High,Diagnostic criteria,No,No,No,No,No,Level 1,United States (International standard),No,DSM-5-TR classification system for dementia diagnoses
+SRC-014,ICD-11 Dementia Classifications,World Health Organization,https://icd.who.int/,Classification System,Online database,"International classification codes for dementia types (6D80-6D8Z, 6D70-6D71)",Healthcare Professionals|Researchers|Health Systems,Multiple,Ongoing (living document),Open Access,Very High,Classification only,No,No,No,No,No,Level 1,Global,No,ICD-11 for mortality and morbidity statistics
+SRC-015,National Institute on Aging - Alzheimer's Information,National Institute on Aging (USA),https://www.nia.nih.gov/health/alzheimers-and-dementia,Research Institute,Web pages + publications,"Research updates, caregiving, health information, clinical trials",Patients|Caregivers|Researchers|Healthcare Professionals,English|Spanish,Frequent,Open Access,Very High,All stages,Yes,Yes,Yes,Yes,Yes,Level 1-2,United States,Yes,NIH-funded research and evidence-based information
+SRC-016,Alzheimer's Disease International - World Report,Alzheimer's Disease International,https://www.alzint.org/,Annual Report,PDF report,Global dementia statistics and policy recommendations,Policymakers|Researchers|Healthcare Organizations,English (summary translations),Annual,Open Access,High,Epidemiology and policy,No,No,Yes,No,No,Level 1,Global,No,World Alzheimer Report series with thematic focus each year
+SRC-017,Cochrane Dementia and Cognitive Improvement,Cochrane Library,https://www.cochrane.org/,Systematic Reviews,Journal articles (some open access),"Evidence reviews of dementia interventions, treatments, and care approaches",Healthcare Professionals|Researchers,English,Ongoing,Mixed (some open),Very High,Intervention-specific,Varies,Varies,Varies,Varies,Varies,Level 1 (systematic reviews),Global,Yes,"Highest quality evidence synthesis; some reviews open access, others require subscription"
+SRC-018,Dementia Australia - Living with Dementia,Dementia Australia,https://www.dementia.org.au/,Educational Resource,Web pages + helpline,Living with dementia and practical support,Patients|Caregivers,English (some multicultural),Regular updates,Open Access,High,All stages,Yes,Yes,Yes,Yes,Yes,Level 2-3,Australia,Yes,National Dementia Helpline: 1800 100 500; culturally diverse resources
+SRC-019,Canadian Dementia Knowledge Translation Network,CDKTN,https://www.cdktn.ca/,Knowledge Hub,Web resources,Evidence-based dementia care resources,Healthcare Professionals|Care Organizations,English|French,Ongoing,Open Access,High,All stages,Yes,Yes,Yes,Yes,Limited,Level 2,Canada,Yes,Focus on knowledge translation from research to practice
+SRC-020,Memory and Aging Center - UCSF,University of California San Francisco,https://memory.ucsf.edu/,Academic Medical Center,Clinical resources + research,"Diagnosis, care, research, caregiver resources",Patients|Caregivers|Healthcare Professionals,English,Periodic,Open Access,Very High,All stages,Yes,Yes,Yes,Yes,Yes,Level 1-2,United States (Global reach),Yes,Leading academic dementia center with clinical and research expertise
+SRC-021,Mayo Clinic - Dementia,Mayo Clinic,https://www.mayoclinic.org/diseases-conditions/dementia/,Medical Reference,Web pages,"Symptoms, causes, diagnosis, treatment, care",Patients|Caregivers|General Public,English|Spanish,Periodic,Open Access,Very High,All stages,Yes,Yes,Yes,Yes,Yes,Level 2,United States,Yes,Trusted medical reference with evidence-based information
+SRC-022,Johns Hopkins Medicine - Dementia Care,Johns Hopkins Medicine,https://www.hopkinsmedicine.org/health/conditions-and-diseases/dementia,Medical Reference,Web pages,"Types, symptoms, diagnosis, treatment, prevention",Patients|Caregivers|Healthcare Professionals,English,Periodic,Open Access,Very High,All stages,Partial,Partial,Yes,Yes,Yes,Level 2,United States,Yes,Academic medical center with research and clinical expertise
+SRC-023,American Academy of Neurology - Dementia Guidelines,American Academy of Neurology,https://www.aan.com/,Clinical Guidelines,Journal articles (PDF),"Practice parameters for diagnosis and management of dementia",Healthcare Professionals,English,Periodic (evidence-based),Mixed (some open),Very High,Diagnostic and management,Partial,Partial,Yes,Limited,Yes,Level 1,United States,Yes,Evidence-based practice guidelines for neurologists
+SRC-024,European Academy of Neurology - Dementia Guidelines,European Academy of Neurology,https://www.ean.org/,Clinical Guidelines,Journal publications,European consensus on dementia management,Healthcare Professionals,English,Periodic,Mixed (some open),Very High,Management focused,Partial,Partial,Limited,Limited,Yes,Level 1,Europe,Yes,European clinical practice standards
+SRC-025,Japan Dementia Strategy,Ministry of Health Labour and Welfare Japan,https://www.mhlw.go.jp/,National Policy,Policy documents (web),National dementia strategy and support systems,Policymakers|Healthcare Organizations,Japanese|English (limited),Periodic,Open Access,High,Policy and systems,Varies,Varies,Yes,Yes,Limited,Level 3,Japan,Partial,Example of national dementia strategy; may require translation
+
+# Metadata
+# Purpose: Comprehensive inventory of authoritative dementia information sources for WP-03 information extraction
+# Created: WP-01 Foundation Research Phase
+# Total Sources: 25 initial sources identified
+# Source Selection Criteria:
+#   - Authoritative organization (WHO, national health services, medical institutions, professional societies)
+#   - Evidence-based content (systematic reviews, clinical guidelines, peer-reviewed information)
+#   - Publicly accessible (preference for open access; some clinical guidelines may require subscription)
+#   - Comprehensive coverage (stages, care, symptoms, management)
+#   - Updated regularly (currency of information)
+#   - Multiple target audiences (patients, caregivers, professionals)
+# Geographic Diversity: Global (WHO, ADI), United States, United Kingdom, Europe, Australia, Canada, Japan
+# Content Type Distribution:
+#   - Clinical Guidelines: 7 sources
+#   - Educational Resources: 12 sources
+#   - Policy/Strategy Documents: 3 sources
+#   - Data/Research: 3 sources
+# Evidence Level Distribution:
+#   - Level 1 (Systematic reviews, guidelines): 11 sources
+#   - Level 2 (Evidence-based resources): 11 sources
+#   - Level 3 (Expert opinion, practical guidance): 3 sources
+# Target Audience Coverage:
+#   - Patients: 18 sources
+#   - Caregivers: 20 sources
+#   - Healthcare Professionals: 15 sources
+#   - Policymakers: 4 sources
+#   - Researchers: 6 sources
+# Extraction Priority for WP-03:
+#   - High priority (comprehensive stage-specific information): SRC-001 to SRC-012, SRC-015, SRC-017 to SRC-022
+#   - Medium priority (specialized or regional): SRC-013, SRC-014, SRC-016, SRC-023 to SRC-025
+#   - Low priority (data/policy focus): SRC-002
+# Language Coverage:
+#   - English: All sources
+#   - Spanish: 6 sources
+#   - Multiple languages: 4 sources (WHO resources)
+# Stage Coverage Analysis:
+#   - All stages covered: 14 sources
+#   - Specific stage focus: 5 sources (mostly mid-late stages for ADL care)
+#   - General/diagnostic: 6 sources
+# ADL/IADL Coverage:
+#   - Both ADL and IADL: 13 sources
+#   - Partial coverage: 8 sources
+#   - Limited/None: 4 sources
+# Next Steps for WP-03:
+#   1. Extract information from each source systematically
+#   2. Categorize by topics (30+ expected: symptoms, diagnosis, stages, medications, ADL support, IADL support, behavioral symptoms, etc.)
+#   3. Map information items to FAST stages and ADL/IADL impairments
+#   4. Assign target audiences (patient/caregiver/both)
+#   5. Track page-level references for all extracted information
+# Expansion Opportunities:
+#   - Additional national dementia strategies (France, Germany, Netherlands, Nordic countries)
+#   - Specialized topics (young-onset dementia, specific dementia types, end-of-life care)
+#   - Non-English language primary sources
+#   - Patient advocacy organization resources
+#   - Evidence-based caregiver intervention programs
