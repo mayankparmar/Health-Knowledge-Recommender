@@ -1,0 +1,121 @@
+# PDF Data Extraction and Annotation Configuration
+# Health Knowledge Recommender Project
+
+# ============================================================================
+# Data Paths - Paths to reference data files
+# ============================================================================
+data_paths:
+  # FAST staging model data
+  fast_stages: data/wp-01/fast-stages.json
+
+  # ADL and IADL capability definitions
+  adl_file: data/wp-01/[Katz] ADLs.xlsx
+  iadl_file: data/wp-01/[Lawton] IADL.xlsx
+
+  # FAST-ADL-IADL mapping
+  mapping_file: data/wp-02/FAST and ADL IADL mapping.xlsx
+
+# ============================================================================
+# Documents - PDF files to process
+# ============================================================================
+documents:
+  - id: doc_001
+    name: "The Dementia Guide"
+    file_path: data/resources/the_dementia_guide.pdf
+    source_organization: "Alzheimer's Society UK"
+    target_audience: "Both"  # Patient, Caregiver, or Both
+    language: en
+
+  - id: doc_002
+    name: "Caring: A Practical Guide"
+    file_path: data/resources/caring_practical_guide.pdf
+    source_organization: "Alzheimer's Society UK"
+    target_audience: "Caregiver"
+    language: en
+
+# ============================================================================
+# Extraction Settings
+# ============================================================================
+extraction:
+  # PDF library to use: "pdfplumber", "pypdf2", or "auto"
+  pdf_library: auto
+
+  # Minimum character length for sections
+  min_section_length: 50
+
+  # Minimum character length for paragraphs
+  min_paragraph_length: 20
+
+  # Extract tips/bullet points separately
+  extract_tips: true
+
+# ============================================================================
+# Annotation Settings
+# ============================================================================
+annotation:
+  # Annotation method: "rule_based", "llm", or "hybrid"
+  # - rule_based: Fast, keyword-based annotation
+  # - llm: AI-powered annotation (requires API key)
+  # - hybrid: LLM with rule-based fallback
+  method: rule_based
+
+  # Minimum confidence threshold for rule-based annotation
+  min_confidence: 0.3
+
+# ============================================================================
+# LLM Settings (for LLM-based annotation)
+# ============================================================================
+llm:
+  # Enable LLM annotation
+  enabled: false
+
+  # LLM provider: "anthropic", "openai", or "gemini"
+  provider: anthropic
+
+  # Model name/ID
+  # Anthropic: claude-3-5-sonnet-20241022, claude-3-opus-20240229
+  # OpenAI: gpt-4, gpt-3.5-turbo
+  # Gemini: gemini-pro, gemini-1.5-pro
+  model: claude-3-5-sonnet-20241022
+
+  # Environment variable containing API key
+  api_key_env_var: ANTHROPIC_API_KEY
+
+  # Temperature (0.0 = deterministic, 1.0 = creative)
+  temperature: 0.3
+
+  # Maximum tokens in response
+  max_tokens: 2000
+
+# ============================================================================
+# Output Settings
+# ============================================================================
+output:
+  # Base output directory
+  output_dir: output
+
+  # Generate knowledge graph in JSON-LD format
+  generate_knowledge_graph: true
+  knowledge_graph_file: output/knowledge_graph.jsonld
+
+  # Base URI for knowledge graph entities
+  knowledge_graph_base_uri: "http://health-knowledge-recommender.org/kg/"
+
+  # Include FAST/ADL/IADL reference data in knowledge graph
+  include_reference_data: true
+
+  # Generate CSV files for analysis
+  generate_csv: true
+
+  # Generate raw JSON output
+  generate_json: false
+
+# ============================================================================
+# Logging Settings
+# ============================================================================
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR
+  level: INFO
+
+  # Log file path (optional, leave empty for console only)
+  log_file: logs/extraction.log
