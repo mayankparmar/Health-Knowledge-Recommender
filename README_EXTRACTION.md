@@ -743,15 +743,149 @@ python visualize_knowledge_graph.py output/knowledge_graph.jsonld \
 - **Memory**: ~100MB for reference data + PDF size
 - **Visualization**: Graphs with >1000 nodes may be slow in browser; use filtered views for large graphs
 
+## Web Application - Content Dissemination Platform
+
+After extracting and annotating content, you can launch an interactive web application that allows users (patients, caregivers, healthcare providers) to search for care information by disease stage and functional capability.
+
+### Quick Start
+
+```bash
+# Install streamlit
+pip install streamlit
+
+# Launch the web application
+streamlit run app.py
+```
+
+The application will open in your browser at `http://localhost:8501`
+
+### Features
+
+**Search Capabilities:**
+- 🔍 Filter by FAST disease stage (e.g., FAST-4, FAST-7c)
+- 🎯 Filter by functional capability (ADLs and IADLs)
+- 📊 Filter by confidence level
+- 🏷️ Filter by topics (diagnosis, treatment, caregiver support, etc.)
+- 📝 Filter by content type (paragraphs, tips, sections)
+
+**User Interface:**
+- 📱 Responsive, mobile-friendly design
+- 💳 Content cards with color-coded confidence levels
+- 📄 Source citations with page numbers
+- 📈 Real-time statistics (result count, confidence metrics)
+- 🔄 Pagination for large result sets
+- 📖 Expandable details for full text and metadata
+
+**Content Display:**
+- Full extracted text from PDFs
+- Page number and document references
+- FAST stage and capability annotations
+- Topic tags and target audience
+- Confidence scores (high/medium/low)
+
+### Usage Example
+
+1. **Select Disease Stage:**
+   - Choose a FAST stage from the dropdown (e.g., "FAST-4: Mild Dementia")
+   - View stage information in the sidebar
+
+2. **Choose Capability:**
+   - Select ADL (e.g., "Bathing") or IADL (e.g., "Medication Management")
+   - Or choose "All Capabilities" for broader results
+
+3. **Adjust Filters (Optional):**
+   - Set minimum confidence threshold
+   - Select content types (paragraphs, tips, sections)
+   - Filter by specific topics
+
+4. **Search:**
+   - Click the Search button
+   - Browse results sorted by confidence
+   - View full text, source citations, and related metadata
+
+### Deployment Options
+
+**Local Development:**
+```bash
+streamlit run app.py
+```
+
+**Streamlit Cloud (Free Hosting):**
+1. Push your code to GitHub
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Connect your repository
+4. Deploy with one click
+
+**Docker Deployment:**
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 8501
+CMD ["streamlit", "run", "app.py", "--server.address", "0.0.0.0"]
+```
+
+**Production Hosting:**
+- AWS EC2/ECS with Application Load Balancer
+- Google Cloud Run
+- Azure App Service
+- DigitalOcean App Platform
+
+### Configuration
+
+The web app automatically loads:
+- `output/contents.csv` - Extracted content
+- `output/annotations.csv` - Annotations
+- `data/wp-01/fast-stages.json` - FAST stage definitions
+- `data/wp-01/[Katz] ADLs.xlsx` - ADL definitions
+- `data/wp-01/[Lawton] IADL.xlsx` - IADL definitions
+
+**Custom Styling:**
+Edit the CSS in `app.py` to customize colors, fonts, and layout to match your organization's branding.
+
+### Accessibility Features
+
+- High contrast color scheme
+- Large, readable text
+- Clear navigation
+- Keyboard-friendly interface
+- Screen reader compatible structure
+
+### Security Considerations
+
+For production deployment:
+- Enable HTTPS/SSL
+- Add authentication if needed (Streamlit supports OAuth, LDAP)
+- Set appropriate CORS policies
+- Consider rate limiting for public deployments
+- Review data privacy (no PHI/PII in current implementation)
+
+### Mobile Experience
+
+The application is fully responsive and works on:
+- 📱 Smartphones (iOS, Android)
+- 💻 Tablets
+- 🖥️ Desktop browsers
+- 🌐 All modern browsers (Chrome, Firefox, Safari, Edge)
+
 ## Future Enhancements
 
 Potential extensions to this system:
 - [ ] Multi-language support
 - [ ] Custom ontology definitions
-- [ ] Real-time API endpoint
-- [ ] Web interface for annotation review
+- [ ] RESTful API endpoint for integrations
+- [ ] Admin interface for annotation review and correction
 - [ ] Active learning for improving annotations
 - [ ] Integration with electronic health records
+- [ ] User accounts and personalized recommendations
+- [ ] Bookmark and save functionality
+- [ ] Care plan generation
+- [ ] Print-friendly formats and PDF exports
 
 ## Support and Contribution
 
